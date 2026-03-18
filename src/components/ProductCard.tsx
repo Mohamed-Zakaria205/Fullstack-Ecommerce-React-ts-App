@@ -8,7 +8,6 @@ const ProductCard = () => {
   console.log(colorMode);
   return (
     <Card.Root
-      maxW="sm"
       overflow="hidden"
       bg={"none"}
       border={{ base: "1px solid #a8b5c8", _dark: "1px solid #4a5568" }}
