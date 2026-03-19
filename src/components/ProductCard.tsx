@@ -1,5 +1,4 @@
 import { Button, Card, Image, Text } from "@chakra-ui/react";
-import { useColorMode } from "./ui/color-mode-hooks";
 import { Link } from "react-router-dom";
 import type { IProduct } from "../interfaces";
 
@@ -7,9 +6,6 @@ interface IProps {
   product: IProduct;
 }
 const ProductCard = ({ product }: IProps) => {
-  const { colorMode, toggleColorMode } = useColorMode();
-
-  console.log(colorMode);
   return (
     <Card.Root
       overflow="hidden"
@@ -45,7 +41,6 @@ const ProductCard = ({ product }: IProps) => {
           letterSpacing="tight"
           mt="2"
           textAlign={"center"}
-          onClick={toggleColorMode}
           color={{ base: "green.600", _dark: "green.300" }}
         >
           ${product.price}

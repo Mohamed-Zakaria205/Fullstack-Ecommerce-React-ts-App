@@ -1,5 +1,4 @@
-import { Box, Button, Card, Center, Flex, Image, Text } from "@chakra-ui/react";
-import { useColorMode } from "../components/ui/color-mode-hooks";
+import { Box, Button, Card, Flex, Image, Text } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetProductByIdQuery } from "../app/features/productsList/productApi";
 import ProductSkeleton from "../components/ProductSkeleton";
@@ -7,7 +6,6 @@ import { useEffect } from "react";
 import { BsArrowLeft } from "react-icons/bs";
 
 const Product = () => {
-  const { toggleColorMode } = useColorMode();
   const navigate = useNavigate();
   const { id } = useParams();
   const { data, isLoading } = useGetProductByIdQuery(id!);
@@ -78,7 +76,6 @@ const Product = () => {
             letterSpacing="tight"
             mt="2"
             textAlign={"center"}
-            onClick={toggleColorMode}
             color={{ base: "green.600", _dark: "green.300" }}
           >
             ${data?.data?.price}
