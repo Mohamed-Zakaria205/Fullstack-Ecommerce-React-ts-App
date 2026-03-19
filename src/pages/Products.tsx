@@ -4,7 +4,7 @@ import { useGetProductsQuery } from "../app/features/productsList/productApi";
 import type { IProduct } from "../interfaces";
 import ProductSkeleton from "../components/ProductSkeleton";
 
-const ProductsPage = () => {
+const Products = () => {
   const { data, isLoading, error } = useGetProductsQuery({});
   console.log("data", data, "isLoading", isLoading, "error", error);
 
@@ -33,4 +33,4 @@ const ProductsPage = () => {
   );
 };
 
-export default ProductsPage;
+export default Products;

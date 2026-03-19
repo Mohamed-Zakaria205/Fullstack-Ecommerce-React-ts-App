@@ -10,6 +10,11 @@ export const productApi = createApi({
       query: () =>
         `/products?populate=thumbnail&fields=title,stock,description,price`,
     }),
+
+    getProductById: build.query({
+      query: (id: string) =>
+        `/products/${id}?populate=thumbnail&fields=title,stock,description,price`,
+    }),
   }),
 });
-export const { useGetProductsQuery } = productApi;
+export const { useGetProductsQuery, useGetProductByIdQuery } = productApi;
