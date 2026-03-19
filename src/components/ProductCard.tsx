@@ -17,7 +17,7 @@ const ProductCard = ({ product }: IProps) => {
       border={{ base: "1px solid #a8b5c8", _dark: "1px solid #4a5568" }}
     >
       <Image
-        src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+        src={`${import.meta.env.VITE_SERVER_URL}${product.thumbnail.url}`}
         alt="Green double couch with wooden legs"
         boxSize={"200px"}
         rounded={"full"}
@@ -53,7 +53,7 @@ const ProductCard = ({ product }: IProps) => {
       </Card.Body>
       <Card.Footer gap="2">
         <Button variant="solid" width={"full"} size={"xl"} asChild>
-          <Link to={`/products/${1}`}>Buy now</Link>
+          <Link to={`/products/${product.documentId}`}>View Details</Link>
         </Button>
       </Card.Footer>
     </Card.Root>

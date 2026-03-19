@@ -3,7 +3,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import ProductsPage from "../components/ProductsPage";
+import ProductsPage from "../pages/ProductsPage";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
