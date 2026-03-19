@@ -10,11 +10,7 @@ const Products = () => {
 
   if (isLoading)
     return (
-      <Grid
-        margin={30}
-        templateColumns={"repeat(auto-fill, minmax(300px, 1fr))"}
-        gap={6}
-      >
+      <Grid templateColumns={"repeat(auto-fill, minmax(300px, 1fr))"} gap={6}>
         {Array.from({ length: 20 }).map((_, index) => (
           <ProductSkeleton key={index} />
         ))}
