@@ -9,3 +9,9 @@ export interface IProduct {
   };
   category?: string;
 }
+
+export interface IUser {
+  documentId: string;
+  name: string;
+  email: string;
+}

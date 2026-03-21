@@ -1,6 +1,6 @@
 import { Box, Button, Card, Flex, Image, Text } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useGetProductByIdQuery } from "../app/features/productsList/productApi";
+import { useGetProductByIdQuery } from "../app/services/productsApi";
 import ProductSkeleton from "../components/ProductSkeleton";
 import { useEffect } from "react";
 import { BsArrowLeft } from "react-icons/bs";
@@ -12,8 +12,8 @@ const Product = () => {
   console.log(data?.data);
 
   useEffect(() => {
-    document.title = `Products Store | Product ${id}`;
-  }, [id]);
+    document.title = `Products Store | Product ${data?.data?.title}`;
+  }, [data]);
   if (isLoading)
     return (
       <Box maxWidth={"sm"} mx={"auto"} my={20}>
@@ -30,7 +30,6 @@ const Product = () => {
         onClick={goBack}
         cursor={"pointer"}
         maxWidth={"sm"}
-        // border={"2px solid white"}
         my={7}
         fontSize={"lg"}
         mx={"auto"}

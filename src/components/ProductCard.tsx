@@ -9,8 +9,9 @@ const ProductCard = ({ product }: IProps) => {
   return (
     <Card.Root
       overflow="hidden"
-      bg={"none"}
+      bg={{ base: "blackAlpha.200", _dark: "blackAlpha.400" }}
       border={{ base: "1px solid #a8b5c8", _dark: "1px solid #4a5568" }}
+      rounded={"2xl"}
     >
       <Image
         src={`${import.meta.env.VITE_SERVER_URL}${product.thumbnail.url}`}

@@ -1,6 +1,6 @@
 import { Grid } from "@chakra-ui/react";
 import ProductCard from "../components/ProductCard";
-import { useGetProductsQuery } from "../app/features/productsList/productApi";
+import { useGetProductsQuery } from "../app/services/productsApi";
 import type { IProduct } from "../interfaces";
 import ProductSkeleton from "../components/ProductSkeleton";
 
