@@ -15,6 +15,7 @@ import { useLoginMutation } from "../app/services/authApi";
 import { useNavigate } from "react-router-dom";
 import { setCredentials } from "../app/features/Auth/authSlice";
 import { toaster } from "../components/ui/toaster-instance";
+import { useCookies } from "react-cookie";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -33,6 +34,8 @@ const Login = () => {
   const passwordError =
     isSubmitted && (!password.trim() || password.length < 6);
 
+  const [, setCookie] = useCookies(["token"]);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitted(true);
@@ -49,22 +52,29 @@ const Login = () => {
       const response = await login({ identifier, password }).unwrap();
       dispatch(setCredentials({ user: response.user, jwt: response.jwt }));
 
+      setCookie("token", response.jwt, {
+        path: "/",
+        maxAge: 60 * 60 * 24 * 7,
+      });
+
       console.log(response);
 
       toaster.create({
         title: `Login successful, You'll navigate after 2 seconds`,
         type: "success",
+        duration: 2000,
       });
 
       setTimeout(() => {
         navigate("/products");
-      }, 2500);
+      }, 2000);
     } catch (err) {
       const error = err as { data?: { error?: { message?: string } } };
 
       toaster.create({
         title: `${error?.data?.error?.message}`,
         type: "error",
+        duration: 2000,
       });
     }
   };

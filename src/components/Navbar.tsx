@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../app/features/Auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import type { RootState } from "../app/store";
+import { useCookies } from "react-cookie";
 
 const navLinks = [
   { label: "Home", to: "/" },
@@ -28,6 +29,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const [, , removeCookie] = useCookies(["token"]);
 
   return (
     <Box
@@ -128,6 +130,7 @@ const Navbar = () => {
             <Button
               onClick={() => {
                 dispatch(logout());
+                removeCookie("token");
                 navigate("/login");
               }}
             >
