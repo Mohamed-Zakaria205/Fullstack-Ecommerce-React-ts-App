@@ -8,6 +8,7 @@ export interface IProduct {
     url?: string;
   };
   category?: string;
+  quantity?: number;
 }
 
 export interface IUser {

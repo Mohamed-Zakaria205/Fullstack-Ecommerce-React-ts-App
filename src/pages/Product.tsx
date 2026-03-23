@@ -55,8 +55,9 @@ const Product = () => {
           objectFit={"fill"}
           objectPosition={"top"}
           rounded={"lg"}
-          width={"full"}
+          width={"340px"}
           height={"300px"}
+          mx={"auto"}
         />
         <Card.Body gap="2">
           <Card.Title
