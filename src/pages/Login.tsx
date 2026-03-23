@@ -13,7 +13,7 @@ import {
 import { LuEye, LuEyeOff } from "react-icons/lu";
 import { useLoginMutation } from "../app/services/authApi";
 import { useNavigate } from "react-router-dom";
-import { setCredentials } from "../app/features/Auth/authSlice";
+import { setCredentials } from "../app/features/auth/authSlice";
 import { toaster } from "../components/ui/toaster-instance";
 import { useCookies } from "react-cookie";
 

@@ -14,10 +14,11 @@ import { NavLink } from "react-router-dom";
 import { useColorMode } from "./ui/color-mode-hooks";
 import { LuSun, LuMoon, LuMenu, LuX } from "react-icons/lu";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../app/features/Auth/authSlice";
+import { logout } from "../app/features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import type { RootState } from "../app/store";
 import { useCookies } from "react-cookie";
+import { toggleCartDrawerAction } from "../app/features/global/globalSlice";
 
 const navLinks = [
   { label: "Home", to: "/" },
@@ -105,7 +106,9 @@ const Navbar = () => {
             {colorMode === "dark" ? <LuSun /> : <LuMoon />}
           </IconButton>
 
-          <Button>Cart ({items.length})</Button>
+          <Button onClick={() => dispatch(toggleCartDrawerAction())}>
+            Cart ({items.length})
+          </Button>
           {!isAuthenticated ? (
             <Button
               onClick={() => {

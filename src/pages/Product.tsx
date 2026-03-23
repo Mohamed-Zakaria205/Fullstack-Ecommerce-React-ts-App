@@ -4,7 +4,7 @@ import { useGetProductByIdQuery } from "../app/services/productsApi";
 import ProductSkeleton from "../components/ProductSkeleton";
 import { useEffect } from "react";
 import { BsArrowLeft } from "react-icons/bs";
-import { addToCartAction } from "../app/features/cartSlice";
+import { addToCartAction } from "../app/features/cart/cartSlice";
 import { useDispatch } from "react-redux";
 
 const Product = () => {
