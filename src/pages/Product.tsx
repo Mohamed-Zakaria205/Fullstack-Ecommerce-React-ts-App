@@ -4,6 +4,8 @@ import { useGetProductByIdQuery } from "../app/services/productsApi";
 import ProductSkeleton from "../components/ProductSkeleton";
 import { useEffect } from "react";
 import { BsArrowLeft } from "react-icons/bs";
+import { addToCartAction } from "../app/features/cartSlice";
+import { useDispatch } from "react-redux";
 
 const Product = () => {
   const navigate = useNavigate();
@@ -11,6 +13,7 @@ const Product = () => {
   const { data, isLoading } = useGetProductByIdQuery(id!);
   console.log(data?.data);
 
+  const dispatch = useDispatch();
   useEffect(() => {
     document.title = `Products Store | Product ${data?.data?.title}`;
   }, [data]);
@@ -87,6 +90,9 @@ const Product = () => {
             size={"xl"}
             p={8}
             textTransform={"uppercase"}
+            onClick={() => {
+              dispatch(addToCartAction(data?.data));
+            }}
           >
             Add To Cart
           </Button>

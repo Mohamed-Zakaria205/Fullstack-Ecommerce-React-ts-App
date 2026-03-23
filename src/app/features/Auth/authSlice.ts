@@ -4,12 +4,14 @@ import { Cookies } from "react-cookie";
 export interface AuthState {
   user: IUser | null;
   jwt: string | null;
+  isAuthenticated: boolean;
 }
 
 const cookies = new Cookies();
 const initialState: AuthState = {
   user: null,
   jwt: cookies.get("token") || null,
+  isAuthenticated: cookies.get("token") ? true : false,
 };
 
 const authSlice = createSlice({
@@ -22,11 +24,13 @@ const authSlice = createSlice({
     ) => {
       state.user = action.payload.user;
       state.jwt = action.payload.jwt;
+      state.isAuthenticated = true;
     },
 
     logout: (state) => {
       state.user = null;
       state.jwt = null;
+      state.isAuthenticated = false;
     },
   },
 });

@@ -8,6 +8,7 @@ import {
   IconButton,
   Button,
   VStack,
+  Menu,
 } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 import { useColorMode } from "./ui/color-mode-hooks";
@@ -24,12 +25,13 @@ const navLinks = [
 ];
 
 const Navbar = () => {
-  const { jwt } = useSelector((state: RootState) => state.auth);
+  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
   const { colorMode, toggleColorMode } = useColorMode();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [, , removeCookie] = useCookies(["token"]);
+  const { items } = useSelector((state: RootState) => state.cart);
 
   return (
     <Box
@@ -103,7 +105,8 @@ const Navbar = () => {
             {colorMode === "dark" ? <LuSun /> : <LuMoon />}
           </IconButton>
 
-          {!jwt ? (
+          <Button>Cart ({items.length})</Button>
+          {!isAuthenticated ? (
             <Button
               onClick={() => {
                 dispatch(logout());
@@ -127,24 +130,30 @@ const Navbar = () => {
               </NavLink>
             </Button>
           ) : (
-            <Button
-              onClick={() => {
-                dispatch(logout());
-                removeCookie("token");
-                navigate("/login");
-              }}
-            >
-              Logout
-            </Button>
+            <Menu.Root>
+              <Menu.Trigger asChild>
+                <Avatar.Root colorPalette="red" cursor="pointer">
+                  <Avatar.Fallback />
+                  <Avatar.Image src="https://bit.ly/broken-link" />
+                </Avatar.Root>
+              </Menu.Trigger>
+              <Menu.Content>
+                <Menu.Item
+                  value="logout"
+                  onClick={() => {
+                    dispatch(logout());
+                    removeCookie("token");
+                    window.location.reload();
+                  }}
+                  cursor="pointer"
+                  color="red.500"
+                  _hover={{ bg: "red.50" }}
+                >
+                  Logout
+                </Menu.Item>
+              </Menu.Content>
+            </Menu.Root>
           )}
-
-          <Avatar.Root size="sm" cursor="pointer">
-            <Avatar.Fallback
-              bg={{ base: "blue.500", _dark: "blue.400" }}
-              color="white"
-              name="User"
-            />
-          </Avatar.Root>
 
           {/* Mobile Menu Toggle */}
           <IconButton
