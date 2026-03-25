@@ -31,6 +31,8 @@ const CartDrawer = () => {
                 variant="outline"
                 border="1px solid red.400"
                 color="red.400"
+                w={"fit-content"}
+                _hover={{ bg: "red.200", color: "red.500" }}
                 onClick={() => dispatch(clearCartAction())}
               >
                 Clear All

@@ -3,6 +3,7 @@ import { Separator } from "@chakra-ui/react";
 import type { IProduct } from "../interfaces";
 import { removeFromCartAction } from "../app/features/cart/cartSlice";
 import { useDispatch } from "react-redux";
+import Delete from "./SVGs/Delete";
 
 interface Props {
   product: IProduct;
@@ -22,22 +23,23 @@ const CartDrawerItem = ({
           objectFit="cover"
         />
         <Stack w="full">
-          <Flex gap={6}>
+          <Flex gap={2} direction={"column"}>
             <Text fontSize={"sm"}> {title}</Text>
             <Text fontSize={"sm"}>Price: ${price}</Text>
+            <Text fontSize={"sm"}>Quantity: {quantity}</Text>
           </Flex>
-          <Text fontSize={"sm"}>Quantity: {quantity}</Text>
           <Button
             variant={"outline"}
             size={"xs"}
-            color={"red.700"}
-            w={"fit-content"}
+            color={"red.400"}
+            w={32}
             rounded={"md"}
-            bg={"red.200"}
-            ml={"auto"}
+            // bg={"red.200"}
+            // ml={"auto"}
+            _hover={{ bg: "red.200", color: "red.500" }}
             onClick={() => dispatch(removeFromCartAction(documentId))}
           >
-            Remove
+            <Delete /> remove
           </Button>
         </Stack>
       </Flex>
