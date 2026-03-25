@@ -2,10 +2,10 @@ import { Button, CloseButton, Drawer, Portal } from "@chakra-ui/react";
 import type { RootState } from "../app/store";
 import { useDispatch, useSelector } from "react-redux";
 import { setCartDrawerAction } from "../app/features/global/globalSlice";
-// import { useState } from "react";
+import CartDrawerItem from "./CartDrawerItem";
 
 const CartDrawer = () => {
-  // const [open, setOpen] = useState(false);
+  const { items } = useSelector((state: RootState) => state.cart);
   const { isCartDrawerOpen } = useSelector((state: RootState) => state.global);
   const dispatch = useDispatch();
   return (
@@ -13,27 +13,26 @@ const CartDrawer = () => {
       open={isCartDrawerOpen}
       onOpenChange={(e) => dispatch(setCartDrawerAction(e.open))}
     >
-      {/* <Drawer.Trigger asChild>
-        <Button variant="outline" size="sm">
-          Open Drawer
-        </Button>
-      </Drawer.Trigger> */}
       <Portal>
         <Drawer.Backdrop />
         <Drawer.Positioner>
           <Drawer.Content>
             <Drawer.Header>
-              <Drawer.Title>Drawer Title</Drawer.Title>
+              <Drawer.Title>Your Shopping Cart</Drawer.Title>
             </Drawer.Header>
             <Drawer.Body>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </p>
+              {items.map((item) => (
+                <CartDrawerItem key={item.documentId} product={item} />
+              ))}
             </Drawer.Body>
             <Drawer.Footer>
-              <Button variant="outline">Cancel</Button>
-              <Button>Save</Button>
+              <Button
+                variant="outline"
+                border="1px solid red.400"
+                color="red.400"
+              >
+                Clear All
+              </Button>
             </Drawer.Footer>
             <Drawer.CloseTrigger asChild>
               <CloseButton size="sm" />

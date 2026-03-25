@@ -23,6 +23,7 @@ import { toggleCartDrawerAction } from "../app/features/global/globalSlice";
 const navLinks = [
   { label: "Home", to: "/" },
   { label: "Products", to: "/products" },
+  { label: "Dashboard", to: "/dashboard" },
 ];
 
 const Navbar = () => {
