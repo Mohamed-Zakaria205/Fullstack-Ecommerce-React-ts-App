@@ -3,6 +3,7 @@ import type { RootState } from "../app/store";
 import { useDispatch, useSelector } from "react-redux";
 import { setCartDrawerAction } from "../app/features/global/globalSlice";
 import CartDrawerItem from "./CartDrawerItem";
+import { clearCartAction } from "../app/features/cart/cartSlice";
 
 const CartDrawer = () => {
   const { items } = useSelector((state: RootState) => state.cart);
@@ -30,6 +31,7 @@ const CartDrawer = () => {
                 variant="outline"
                 border="1px solid red.400"
                 color="red.400"
+                onClick={() => dispatch(clearCartAction())}
               >
                 Clear All
               </Button>

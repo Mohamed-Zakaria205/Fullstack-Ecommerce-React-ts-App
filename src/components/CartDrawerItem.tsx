@@ -1,13 +1,16 @@
 import { Button, Flex, Image, Stack, Text } from "@chakra-ui/react";
 import { Separator } from "@chakra-ui/react";
 import type { IProduct } from "../interfaces";
+import { removeFromCartAction } from "../app/features/cart/cartSlice";
+import { useDispatch } from "react-redux";
 
 interface Props {
   product: IProduct;
 }
 const CartDrawerItem = ({
-  product: { title, price, thumbnail, quantity },
+  product: { title, price, thumbnail, quantity, documentId },
 }: Props) => {
+  const dispatch = useDispatch();
   return (
     <>
       <Flex gap={6} py={2} mb={3} alignItems={"center"}>
@@ -32,6 +35,7 @@ const CartDrawerItem = ({
             rounded={"md"}
             bg={"red.200"}
             ml={"auto"}
+            onClick={() => dispatch(removeFromCartAction(documentId))}
           >
             Remove
           </Button>
