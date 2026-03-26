@@ -4,7 +4,8 @@ import type { RootState } from "../store";
 
 export const apiSlice = createApi({
   reducerPath: "api",
-
+  refetchOnMountOrArgChange: true,
+  refetchOnReconnect: true,
   baseQuery: fetchBaseQuery({
     baseUrl: `${import.meta.env.VITE_SERVER_URL}/api`,
 

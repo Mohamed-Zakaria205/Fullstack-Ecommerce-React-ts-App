@@ -25,8 +25,9 @@ const TableSkeleton = () => {
             </Table.Cell>
             <Table.Cell>
               <Flex gap={2} justifyContent="center" alignItems="center">
-                <Skeleton height="32px" width="70px" />
-                <Skeleton height="32px" width="85px" />
+                <Skeleton height="32px" width="32px" />
+                <Skeleton height="32px" width="32px" />
+                <Skeleton height="32px" width="32px" />
               </Flex>
             </Table.Cell>
           </Table.Row>

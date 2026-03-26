@@ -1,5 +1,5 @@
 import { apiSlice } from "./api";
-
+import qs from "qs";
 export const productsApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
     getProducts: build.query({
@@ -13,6 +13,29 @@ export const productsApi = apiSlice.injectEndpoints({
         `/products/${id}?populate=thumbnail&fields=title,stock,description,price`,
       providesTags: ["Product"],
     }),
+
+    getDashboardProducts: build.query({
+      query: () => {
+        const queryString = qs.stringify(
+          {
+            populate: ["category", "thumbnail"],
+            fields: ["title", "stock", "price"],
+            pagination: {
+              pageSize: 10,
+              page: 1,
+            },
+          },
+          { encodeValuesOnly: true },
+        );
+
+        return `/products?${queryString}`;
+      },
+      providesTags: ["Product"],
+    }),
   }),
 });
-export const { useGetProductsQuery, useGetProductByIdQuery } = productsApi;
+export const {
+  useGetProductsQuery,
+  useGetProductByIdQuery,
+  useGetDashboardProductsQuery,
+} = productsApi;
