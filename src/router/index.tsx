@@ -9,6 +9,7 @@ import Product from "../pages/Product";
 import Login from "../pages/Login";
 import DashboardLayout from "../pages/dashboard/DashboardLayout";
 import DashboardHome from "../pages/dashboard/DashboardHome";
+import DashboardProducts from "../pages/dashboard/DashboardProducts";
 import DashboardCategories from "../pages/dashboard/DashboardCategories";
 
 export const router = createBrowserRouter(
@@ -24,10 +25,7 @@ export const router = createBrowserRouter(
       {/* Dashboard Routes */}
       <Route path="/dashboard" element={<DashboardLayout />}>
         <Route index element={<DashboardHome />} />
-        <Route
-          path="products"
-          element={<h1 className="text-3xl">Products</h1>}
-        />
+        <Route path="products" element={<DashboardProducts />} />
         <Route path="categories" element={<DashboardCategories />} />
       </Route>
     </>,
