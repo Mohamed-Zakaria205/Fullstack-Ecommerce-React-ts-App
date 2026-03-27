@@ -2,12 +2,16 @@ import { Table, Button, Flex, Image } from "@chakra-ui/react";
 import TableSkeleton from "../../components/TableSkeleton";
 import { LuPencil, LuTrash2 } from "react-icons/lu";
 import { HiOutlineEye } from "react-icons/hi";
-import { useGetDashboardProductsQuery } from "../../app/services/productsApi";
+import {
+  useDeleteProductMutation,
+  useGetDashboardProductsQuery,
+} from "../../app/services/productsApi";
 import type { IProduct } from "../../interfaces";
 import CustomDialog from "../../components/ui/CustomDialog";
 
 const DashboardProducts = () => {
   const { data, isLoading, error } = useGetDashboardProductsQuery({ page: 1 });
+  const [deleteProduct, { isLoading: isDeleting }] = useDeleteProductMutation();
   if (isLoading) return <TableSkeleton />;
   if (error) return <div>Error</div>;
   return (
@@ -57,8 +61,10 @@ const DashboardProducts = () => {
                   description={`Are you sure you want to delete "${product.title}"? This action cannot be undone.`}
                   okText="Delete"
                   cancelText="Cancel"
-                  isLoading={false}
-                  onOk={() => {}}
+                  isLoading={isDeleting}
+                  onOk={() => {
+                    deleteProduct(product.documentId);
+                  }}
                   dialogTrigger={
                     <Button colorPalette="red" size="sm" variant="solid">
                       <LuTrash2 />
