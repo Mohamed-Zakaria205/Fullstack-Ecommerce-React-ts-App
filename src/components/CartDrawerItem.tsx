@@ -34,8 +34,6 @@ const CartDrawerItem = ({
             color={"red.400"}
             w={32}
             rounded={"md"}
-            // bg={"red.200"}
-            // ml={"auto"}
             _hover={{ bg: "red.200", color: "red.500" }}
             onClick={() => dispatch(removeFromCartAction(documentId))}
           >

@@ -4,12 +4,12 @@ import { LuPencil, LuTrash2 } from "react-icons/lu";
 import { HiOutlineEye } from "react-icons/hi";
 import { useGetDashboardProductsQuery } from "../../app/services/productsApi";
 import type { IProduct } from "../../interfaces";
+import CustomDialog from "../../components/ui/CustomDialog";
 
 const DashboardProducts = () => {
   const { data, isLoading, error } = useGetDashboardProductsQuery({ page: 1 });
   if (isLoading) return <TableSkeleton />;
   if (error) return <div>Error</div>;
-  console.log(data?.data);
   return (
     <Table.Root size="sm" variant="outline">
       <Table.Header bg={{ base: "gray.200", _dark: "blue.900" }}>
@@ -52,9 +52,19 @@ const DashboardProducts = () => {
                 <Button colorPalette="blue" size="sm" variant="solid">
                   <LuPencil />
                 </Button>
-                <Button colorPalette="red" size="sm" variant="solid">
-                  <LuTrash2 />
-                </Button>
+                <CustomDialog
+                  title="Delete Product"
+                  description={`Are you sure you want to delete "${product.title}"? This action cannot be undone.`}
+                  okText="Delete"
+                  cancelText="Cancel"
+                  isLoading={false}
+                  onOk={() => {}}
+                  dialogTrigger={
+                    <Button colorPalette="red" size="sm" variant="solid">
+                      <LuTrash2 />
+                    </Button>
+                  }
+                />
               </Flex>
             </Table.Cell>
           </Table.Row>
