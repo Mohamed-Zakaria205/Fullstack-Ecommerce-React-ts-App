@@ -19,7 +19,7 @@ export const productsApi = apiSlice.injectEndpoints({
         const queryString = qs.stringify(
           {
             populate: ["category", "thumbnail"],
-            fields: ["title", "stock", "price"],
+            fields: ["title", "stock", "price", "description"],
             pagination: {
               pageSize: 10,
               page: 1,

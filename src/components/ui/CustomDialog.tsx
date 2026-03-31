@@ -4,41 +4,49 @@ import type { ReactNode } from "react";
 interface CustomDialogProps {
   dialogTrigger: ReactNode;
   title?: string;
-  description?: string;
+  body?: ReactNode;
   cancelText?: string;
   okText?: string;
   onOk?: () => void;
   isLoading?: boolean;
+  okColorPalette?: string;
 }
 
 const CustomDialog = ({
   dialogTrigger,
   title = "Dialog Title",
-  description = "Are you sure you want to perform this action?",
+  body = "Are you sure you want to perform this action?",
   cancelText = "Cancel",
   okText = "Save",
   onOk,
   isLoading,
+  okColorPalette = "red",
 }: CustomDialogProps) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>{dialogTrigger}</Dialog.Trigger>
       <Portal>
-        <Dialog.Backdrop />
+        <Dialog.Backdrop
+          backdropFilter="auto"
+          backdropBlur="sm"
+          bg="blackAlpha.600"
+        />
         <Dialog.Positioner>
           <Dialog.Content>
             <Dialog.Header>
               <Dialog.Title>{title}</Dialog.Title>
             </Dialog.Header>
-            <Dialog.Body>
-              <p>{description}</p>
-            </Dialog.Body>
+            <Dialog.Body>{body}</Dialog.Body>
             <Dialog.Footer>
               <Dialog.ActionTrigger asChild>
                 <Button variant="outline">{cancelText}</Button>
               </Dialog.ActionTrigger>
               <Dialog.ActionTrigger asChild>
-                <Button onClick={onOk} loading={isLoading} colorPalette="red">
+                <Button
+                  onClick={onOk}
+                  loading={isLoading}
+                  colorPalette={okColorPalette}
+                >
                   {okText}
                 </Button>
               </Dialog.ActionTrigger>

@@ -5,8 +5,7 @@ import type { IProduct } from "../interfaces";
 import ProductSkeleton from "../components/ProductSkeleton";
 
 const Products = () => {
-  const { data, isLoading, error } = useGetProductsQuery({});
-  console.log("data", data, "isLoading", isLoading, "error", error);
+  const { data, isLoading } = useGetProductsQuery({});
 
   if (isLoading)
     return (
