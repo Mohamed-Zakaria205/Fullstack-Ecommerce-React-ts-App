@@ -1,10 +1,18 @@
-import type { IProduct } from "../../interfaces";
+import type { ICategory } from "../../interfaces";
 import { apiSlice } from "./api";
 import qs from "qs";
 
+interface IUpdateData {
+  title?: string;
+  price?: number;
+  description?: string;
+  stock?: number;
+  category?: ICategory;
+}
+
 interface IUpdateRequest {
   id: string;
-  data: IProduct;
+  data: IUpdateData;
 }
 export const productsApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
@@ -51,7 +59,7 @@ export const productsApi = apiSlice.injectEndpoints({
       query: ({ id, data }) => ({
         url: `/products/${id}`,
         method: "PUT",
-        body: data,
+        body: { data },
       }),
 
       async onQueryStarted({ id, ...patch }, { dispatch, queryFulfilled }) {

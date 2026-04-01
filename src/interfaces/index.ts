@@ -7,10 +7,13 @@ export interface IProduct {
   thumbnail: {
     url?: string;
   };
-  category?: {
-    title: string;
-  };
+  category?: ICategory;
   quantity?: number;
+}
+
+export interface ICategory {
+  documentId: string;
+  title: string;
 }
 
 export interface IUser {

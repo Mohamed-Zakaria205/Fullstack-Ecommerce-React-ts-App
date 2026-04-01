@@ -7,38 +7,48 @@ import {
   Input,
   Stack,
   NumberInput,
-  FileUpload,
   Textarea,
   For,
   NativeSelect,
 } from "@chakra-ui/react";
 import TableSkeleton from "../../components/TableSkeleton";
 import { LuPencil, LuTrash2 } from "react-icons/lu";
-import { HiOutlineEye, HiUpload } from "react-icons/hi";
+import { HiOutlineEye } from "react-icons/hi";
 import {
   useDeleteProductMutation,
   useGetDashboardProductsQuery,
+  useUpdateProductMutation,
 } from "../../app/services/productsApi";
-import type { IProduct } from "../../interfaces";
+import type { ICategory, IProduct } from "../../interfaces";
 import CustomDialog from "../../components/ui/CustomDialog";
 import { toaster } from "../../components/ui/toaster-instance";
 import { useState } from "react";
+import { useGetCategoriesQuery } from "../../app/services/categoriesApi";
 
 const DashboardProducts = () => {
   const { data, isLoading, error } = useGetDashboardProductsQuery({ page: 1 });
   const [deleteProduct, { isLoading: isDeleting }] = useDeleteProductMutation();
+  const [
+    updateProduct,
+    { isLoading: isUpdating, isError: isUpdateError, error: updateError },
+  ] = useUpdateProductMutation();
   const [productToEdit, setProductToEdit] = useState<IProduct>({
     documentId: "",
     title: "",
     price: 0,
     description: "",
     stock: 0,
+    category: {
+      title: "",
+      documentId: "",
+    },
     thumbnail: {
       url: "",
     },
   });
 
-  const [thumbnail, setThumbnail] = useState<File | null>(null);
+  const { data: categoriesList } = useGetCategoriesQuery({});
+  // const [thumbnail, setThumbnail] = useState<File | null>(null);
 
   //* Handlers *//
 
@@ -71,34 +81,52 @@ const DashboardProducts = () => {
     });
   };
   const onChangeCategoryHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedCategory = categoriesList?.data?.find(
+      (category: ICategory) => category.title === e.target.value,
+    );
     setProductToEdit({
       ...productToEdit,
-      category: { title: e.target.value },
+      category: selectedCategory,
     });
   };
-  const onChangeThumbnailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setThumbnail(file);
-    }
-  };
+  // const onChangeThumbnailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = e.target.files?.[0];
+  //   if (file) {
+  //     setThumbnail(file);
+  //   }
+  // };
 
   const onSubmitHandler = () => {
-    const formData = new FormData();
+    // const formData = new FormData();
 
-    formData.append(
-      "data",
-      JSON.stringify({
+    // formData.append(
+    //   "data",
+    //   JSON.stringify({
+    //     title: productToEdit.title,
+    //     price: productToEdit.price,
+    //     description: productToEdit.description,
+    //     stock: productToEdit.stock,
+    //     category: productToEdit.category,
+    //   }),
+    // );
+
+    // if (thumbnail) {
+    //   formData.append("files.thumbnail", thumbnail);
+    // }
+
+    updateProduct({
+      id: productToEdit.documentId,
+      data: {
         title: productToEdit.title,
         price: productToEdit.price,
         description: productToEdit.description,
         stock: productToEdit.stock,
         category: productToEdit.category,
-      }),
-    );
+      },
+    });
 
-    if (thumbnail) {
-      formData.append("files.thumbnail", thumbnail);
+    if (isUpdateError) {
+      console.log(updateError);
     }
   };
 
@@ -214,7 +242,7 @@ const DashboardProducts = () => {
                           onChange={onChangeDescriptionHandler}
                         />
                       </Field.Root>
-                      <Field.Root>
+                      {/* <Field.Root>
                         <Field.Label>Thumbnail</Field.Label>
                         <FileUpload.Root onChange={onChangeThumbnailHandler}>
                           <FileUpload.HiddenInput />
@@ -225,12 +253,12 @@ const DashboardProducts = () => {
                           </FileUpload.Trigger>
                           <FileUpload.List />
                         </FileUpload.Root>
-                      </Field.Root>
+                      </Field.Root> */}
                     </Stack>
                   }
                   okText="Update"
                   cancelText="Cancel"
-                  isLoading={false}
+                  isLoading={isUpdating}
                   onOk={onSubmitHandler}
                   okColorPalette="blue"
                   dialogTrigger={
