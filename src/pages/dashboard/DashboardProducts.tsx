@@ -24,6 +24,8 @@ import CustomDialog from "../../components/ui/CustomDialog";
 import { toaster } from "../../components/ui/toaster-instance";
 import { useState } from "react";
 import { useGetCategoriesQuery } from "../../app/services/categoriesApi";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../app/store";
 
 const DashboardProducts = () => {
   const { data, isLoading, error } = useGetDashboardProductsQuery({ page: 1 });
@@ -50,6 +52,7 @@ const DashboardProducts = () => {
   const { data: categoriesList } = useGetCategoriesQuery({});
   // const [thumbnail, setThumbnail] = useState<File | null>(null);
 
+  const { isOnline } = useSelector((state: RootState) => state.network);
   //* Handlers *//
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -130,7 +133,7 @@ const DashboardProducts = () => {
     }
   };
 
-  if (isLoading) return <TableSkeleton />;
+  if (isLoading || !isOnline) return <TableSkeleton />;
   if (error) return <div>Error</div>;
   return (
     <Table.Root size="sm" variant="outline">
@@ -159,7 +162,7 @@ const DashboardProducts = () => {
             <Table.Cell textAlign="center">${product.price}</Table.Cell>
             <Table.Cell textAlign="center">
               <Image
-                src={`${import.meta.env.VITE_SERVER_URL}${product.thumbnail.url}`}
+                src={`${import.meta.env.VITE_SERVER_URL}${product.thumbnail?.url}`}
                 alt="Green double couch with wooden legs"
                 boxSize={"50px"}
                 rounded={"full"}

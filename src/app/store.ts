@@ -13,6 +13,7 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
+import networkReducer from "./features/network/networkSlice";
 const storage = {
   getItem(key: string) {
     return Promise.resolve(localStorage.getItem(key));
@@ -35,6 +36,7 @@ const persistedCart = persistReducer(persistConfig, cartReducer);
 export const store = configureStore({
   reducer: {
     auth: authReducer,
+    network: networkReducer,
     cart: persistedCart,
     global: globalReducer,
     [apiSlice.reducerPath]: apiSlice.reducer,

@@ -3,11 +3,14 @@ import ProductCard from "../components/ProductCard";
 import { useGetProductsQuery } from "../app/services/productsApi";
 import type { IProduct } from "../interfaces";
 import ProductSkeleton from "../components/ProductSkeleton";
+import { useSelector } from "react-redux";
+import type { RootState } from "../app/store";
 
 const Products = () => {
   const { data, isLoading } = useGetProductsQuery({});
+  const { isOnline } = useSelector((state: RootState) => state.network);
 
-  if (isLoading)
+  if (isLoading || !isOnline)
     return (
       <Grid templateColumns={"repeat(auto-fill, minmax(300px, 1fr))"} gap={6}>
         {Array.from({ length: 20 }).map((_, index) => (

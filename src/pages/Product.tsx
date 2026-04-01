@@ -5,7 +5,8 @@ import ProductDetailsSkeleton from "../components/ProductDetailsSkeleton";
 import { useEffect } from "react";
 import { BsArrowLeft } from "react-icons/bs";
 import { addToCartAction } from "../app/features/cart/cartSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "../app/store";
 
 const Product = () => {
   const navigate = useNavigate();
@@ -14,10 +15,12 @@ const Product = () => {
   console.log(data?.data);
 
   const dispatch = useDispatch();
+  const { isOnline } = useSelector((state: RootState) => state.network);
+
   useEffect(() => {
     document.title = `Products Store | Product ${data?.data?.title}`;
   }, [data]);
-  if (isLoading) return <ProductDetailsSkeleton />;
+  if (isLoading || !isOnline) return <ProductDetailsSkeleton />;
 
   //Handlers
   const goBack = () => navigate(-1);

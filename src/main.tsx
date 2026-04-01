@@ -7,17 +7,20 @@ import { Provider } from "react-redux";
 import { store, persistor } from "./app/store";
 import { CookiesProvider } from "react-cookie";
 import { PersistGate } from "redux-persist/integration/react";
+import NetworkConnectionProviders from "./providers/NetworkConnectionProviders";
 
 createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
-    <CookiesProvider>
-      <ChakraProvider value={defaultSystem}>
-        <ColorModeProvider>
-          <PersistGate loading={null} persistor={persistor}>
-            <App />
-          </PersistGate>
-        </ColorModeProvider>
-      </ChakraProvider>
-    </CookiesProvider>
+    <NetworkConnectionProviders>
+      <CookiesProvider>
+        <ChakraProvider value={defaultSystem}>
+          <ColorModeProvider>
+            <PersistGate loading={null} persistor={persistor}>
+              <App />
+            </PersistGate>
+          </ColorModeProvider>
+        </ChakraProvider>
+      </CookiesProvider>
+    </NetworkConnectionProviders>
   </Provider>,
 );
